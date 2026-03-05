@@ -27,9 +27,7 @@
             font-family: 'Share Tech Mono', monospace;
             background: var(--black);
             color: var(--yellow);
-            overflow-x: hidden;
             min-height: 100vh;
-            position: relative;
         }
         
         body::before {
@@ -39,14 +37,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    45deg,
-                    transparent,
-                    transparent 10px,
-                    rgba(255, 208, 0, 0.03) 10px,
-                    rgba(255, 208, 0, 0.03) 20px
-                );
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 208, 0, 0.03) 10px,
+                rgba(255, 208, 0, 0.03) 20px
+            );
             pointer-events: none;
             z-index: 0;
         }
@@ -66,27 +63,13 @@
             text-align: center;
             border: 4px solid var(--black);
             margin-bottom: 20px;
-            position: relative;
             box-shadow: 0 0 20px rgba(255, 208, 0, 0.5);
         }
-        
-        .warning-header::before,
-        .warning-header::after {
-            content: '⚠️';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 24px;
-        }
-        
-        .warning-header::before { left: 10px; }
-        .warning-header::after { right: 10px; }
         
         h1 {
             font-family: 'Russo One', sans-serif;
             font-size: 32px;
             letter-spacing: 4px;
-            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
         }
         
         h2 {
@@ -101,29 +84,10 @@
             border: 3px solid var(--yellow);
             padding: 20px;
             margin-bottom: 20px;
-            position: relative;
-            box-shadow: 
-                inset 0 0 20px rgba(0, 0, 0, 0.5),
-                0 0 15px rgba(255, 208, 0, 0.3);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 208, 0, 0.3);
         }
         
-        .panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: repeating-linear-gradient(
-                90deg,
-                var(--yellow) 0px,
-                var(--yellow) 10px,
-                var(--black) 10px,
-                var(--black) 20px
-            );
-        }
-        
-        input, select, textarea {
+        input {
             width: 100%;
             padding: 15px;
             margin: 10px 0;
@@ -134,7 +98,7 @@
             font-size: 16px;
         }
         
-        input:focus, select:focus, textarea:focus {
+        input:focus {
             outline: none;
             border-color: var(--yellow);
             box-shadow: 0 0 10px rgba(255, 208, 0, 0.5);
@@ -153,23 +117,11 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
         }
         
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            transition: left 0.3s;
-        }
-        
-        button:hover::before {
-            left: 0;
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 208, 0, 0.8);
         }
         
         button:active {
@@ -181,39 +133,46 @@
             cursor: not-allowed;
         }
         
-        button.danger {
-            background: var(--warning);
-            color: white;
-        }
-        
         button.secondary {
             background: var(--light-gray);
             color: var(--yellow);
             border-color: var(--yellow);
         }
         
-        .card {
-            background: var(--light-gray);
-            border: 2px solid var(--dark-yellow);
-            padding: 15px;
-            margin: 10px 0;
-            position: relative;
-            transition: all 0.3s;
+        button.danger {
+            background: var(--warning);
+            color: white;
         }
         
-        .card.revealed {
-            border-color: var(--success);
-            background: rgba(0, 255, 0, 0.1);
+        .card {
+            background: var(--light-gray);
+            border: 3px solid var(--dark-yellow);
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.3s;
+            position: relative;
         }
         
         .card.hidden {
             border-color: var(--warning);
             cursor: pointer;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--light-gray),
+                var(--light-gray) 10px,
+                var(--gray) 10px,
+                var(--gray) 20px
+            );
         }
         
         .card.hidden:hover {
             transform: translateX(5px);
             box-shadow: -5px 0 0 var(--yellow);
+        }
+        
+        .card.revealed {
+            border-color: var(--success);
+            background: rgba(0, 255, 0, 0.1);
         }
         
         .card-type {
@@ -234,19 +193,16 @@
             border-left: 4px solid var(--yellow);
             padding: 15px;
             margin: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .player-item.eliminated {
-            border-left-color: var(--warning);
-            opacity: 0.6;
         }
         
         .player-item.self {
             border-left-color: var(--success);
             background: rgba(0, 255, 0, 0.1);
+        }
+        
+        .player-item.eliminated {
+            border-left-color: var(--warning);
+            opacity: 0.6;
         }
         
         .status {
@@ -256,6 +212,7 @@
             font-size: 12px;
             font-weight: bold;
             text-transform: uppercase;
+            margin-left: 10px;
         }
         
         .status.alive {
@@ -266,11 +223,6 @@
         .status.eliminated {
             border-color: var(--warning);
             color: var(--warning);
-        }
-        
-        .status.waiting {
-            border-color: var(--dark-yellow);
-            color: var(--dark-yellow);
         }
         
         .round-display {
@@ -337,9 +289,9 @@
             background: var(--gray);
         }
         
-        .alert.success {
-            border-color: var(--success);
-            color: var(--success);
+        .alert.info {
+            border-color: var(--yellow);
+            color: var(--yellow);
         }
         
         .alert.warning {
@@ -347,28 +299,9 @@
             color: var(--warning);
         }
         
-        .alert.info {
-            border-color: var(--yellow);
-            color: var(--yellow);
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 24px;
-                letter-spacing: 2px;
-            }
-            
-            .warning-header {
-                padding: 10px;
-            }
-            
-            .panel {
-                padding: 15px;
-            }
+        .alert.success {
+            border-color: var(--success);
+            color: var(--success);
         }
         
         @keyframes flash {
@@ -389,59 +322,41 @@
             line-height: 1.6;
         }
         
-        .instructions strong {
-            color: var(--yellow);
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: var(--yellow);
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            h1 { font-size: 24px; }
+            .panel { padding: 15px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="warning-header">
-            <h1>BUNKER</h1>
+            <h1>⚠️ BUNKER ⚠️</h1>
             <div style="font-size: 12px; margin-top: 5px;">SURVIVAL PROTOCOL ACTIVE</div>
         </div>
         
-        <!-- Loading Screen -->
-        <div id="loadingScreen">
-            <div class="panel">
-                <div class="loading">
-                    <h2>⚡ CONNECTING TO SERVER...</h2>
-                    <p style="margin-top: 20px;">Please wait while we establish connection</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Welcome / Join Screen -->
-        <div id="welcomeScreen" class="hidden">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen">
             <div class="panel">
                 <h2>⚠️ EMERGENCY PROTOCOL</h2>
                 <p style="margin-bottom: 20px; line-height: 1.6;">
-                    Global catastrophe detected. A bunker has been located. 
-                    Only 2 survivors will be admitted. All others will perish.
+                    Global catastrophe detected. Only 2 survivors will be admitted to the bunker.
                 </p>
                 
                 <div class="instructions">
-                    <strong>Instructions:</strong><br>
-                    1. Create a game room or join existing one<br>
-                    2. Enter your nickname<br>
-                    3. Wait for all players to join<br>
-                    4. Reveal cards each round and vote<br>
-                    5. Survive!
+                    <strong>How to play:</strong><br>
+                    1. One player creates a room<br>
+                    2. Others join with the room code<br>
+                    3. Reveal cards each round<br>
+                    4. Vote to eliminate players<br>
+                    5. Last 2 players survive!
                 </div>
                 
                 <input type="text" id="nicknameInput" placeholder="Enter your nickname..." maxlength="20">
-                
                 <button onclick="createRoom()">🔧 CREATE NEW ROOM</button>
                 
-                <div style="text-align: center; margin: 20px 0; color: var(--dark-yellow);">
-                    - OR -
-                </div>
+                <div style="text-align: center; margin: 20px 0; color: var(--dark-yellow);">- OR -</div>
                 
                 <input type="text" id="roomCodeInput" placeholder="Enter room code..." maxlength="6" style="text-transform: uppercase;">
                 <button onclick="joinRoom()">🚪 JOIN ROOM</button>
@@ -451,25 +366,18 @@
         <!-- Lobby Screen -->
         <div id="lobbyScreen" class="hidden">
             <div class="panel">
-                <h2>ROOM: <span id="roomCodeDisplay"></span></h2>
-                <div class="alert info">
-                    Share this code with other players!
-                </div>
+                <h2>ROOM CODE: <span id="roomCodeDisplay"></span></h2>
+                <div class="alert info">Share this code with other players!</div>
                 
                 <div id="lobbyPlayerList"></div>
                 
                 <div class="instructions">
                     <strong>Waiting for players...</strong><br>
-                    Minimum 4 players required to start.<br>
-                    Maximum 12 players allowed.
+                    Minimum 4 players required. Maximum 12 players.
                 </div>
                 
-                <button id="startGameBtn" onclick="startGame()" disabled>
-                    ⚠️ START GAME
-                </button>
-                <button class="secondary" onclick="leaveRoom()">
-                    ← LEAVE ROOM
-                </button>
+                <button id="startGameBtn" onclick="startGame()" disabled>⚠️ START GAME</button>
+                <button class="secondary" onclick="leaveRoom()">← LEAVE ROOM</button>
             </div>
         </div>
         
@@ -482,8 +390,8 @@
                 </div>
             </div>
             
-            <div class="catastrophe" id="catastropheDisplay">
-                <div class="catastrophe-icon">☢️</div>
+            <div class="catastrophe">
+                <div class="catastrophe-icon" id="catastropheIcon">☢️</div>
                 <h2 id="catastropheName">LOADING...</h2>
                 <p id="catastropheDesc" style="color: white; margin-top: 10px;"></p>
             </div>
@@ -497,35 +405,27 @@
             </div>
             
             <div class="panel">
-                <h2>👥 ALL PLAYERS</h2>
+                <h2>👥 OTHER PLAYERS</h2>
                 <div id="allPlayersList"></div>
             </div>
             
-            <button id="nextPhaseBtn" onclick="nextPhase()" class="hidden">
-                CONTINUE →
-            </button>
+            <button id="nextPhaseBtn" class="hidden" onclick="nextPhase()">CONTINUE →</button>
         </div>
         
         <!-- Voting Screen -->
         <div id="votingScreen" class="hidden">
             <div class="round-display flash">
                 <div>⚠️ VOTING PHASE ⚠️</div>
-                <div style="font-size: 14px; margin-top: 5px;">
-                    ELIMINATE ONE PLAYER
-                </div>
+                <div style="font-size: 14px; margin-top: 5px;">ELIMINATE ONE PLAYER</div>
             </div>
             
             <div class="panel">
                 <h2>SELECT TARGET</h2>
-                <div class="alert warning">
-                    Choose who will be eliminated from the bunker!
-                </div>
+                <div class="alert warning">Choose who will be eliminated!</div>
                 <div id="votingOptions"></div>
             </div>
             
-            <button id="castVoteBtn" onclick="castVote()" disabled>
-                CAST VOTE
-            </button>
+            <button id="castVoteBtn" onclick="castVote()" disabled>CAST VOTE</button>
         </div>
         
         <!-- Results Screen -->
@@ -558,18 +458,15 @@
                 <div id="eliminatedList"></div>
             </div>
             
-            <button onclick="returnToWelcome()">
-                🔄 NEW GAME
-            </button>
+            <button onclick="returnToWelcome()">🔄 NEW GAME</button>
         </div>
     </div>
 
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getDatabase, ref, set, get, onValue, update, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { getDatabase, ref, set, get, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
-        // Firebase configuration - YOUR PROJECT
         const firebaseConfig = {
             apiKey: "AIzaSyCB-CzOu81ffXyHW8r9VAfnG7NH8K_fTkY",
             authDomain: "bunker-game-ako.firebaseapp.com",
@@ -580,114 +477,38 @@
             appId: "1:985630537179:web:73ca0d91fe48d9657da3fe"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Make database available globally
         window.db = database;
         window.dbRef = ref;
         window.dbSet = set;
         window.dbGet = get;
         window.dbOnValue = onValue;
         window.dbUpdate = update;
-        window.dbRemove = remove;
-
-        // Hide loading, show welcome
-        setTimeout(() => {
-            document.getElementById('loadingScreen').classList.add('hidden');
-            document.getElementById('welcomeScreen').classList.remove('hidden');
-        }, 1000);
     </script>
 
     <script>
-        // Game data remains the same
-        const PROFESSIONS = [
-            "Doctor", "Engineer", "Soldier", "Teacher", "Farmer", "Scientist", "Chef", "Mechanic",
-            "Programmer", "Nurse", "Electrician", "Pilot", "Police Officer", "Firefighter", "Architect",
-            "Veterinarian", "Psychologist", "Biologist", "Chemist", "Carpenter"
-        ];
-
-        const AGES = ["18", "22", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70"];
-        
-        const GENDER_STATUS = [
-            "Male, Single", "Female, Single", "Male, Married", "Female, Married",
-            "Male, Divorced", "Female, Divorced", "Non-binary, Single", "Non-binary, Married"
-        ];
-        
-        const HEALTH = [
-            "Excellent Health", "Good Health", "Minor Allergies", "Asthma", "Diabetes",
-            "Heart Condition", "Poor Vision", "Hearing Loss", "Chronic Pain", "Recovering from Injury"
-        ];
-        
-        const SKILLS = [
-            "Expert Hunter", "Master Gardener", "Martial Arts", "Emergency Medicine",
-            "Expert Mechanic", "Electronics Repair", "Radio Operator", "Survivalist",
-            "Expert Cook", "Chemical Knowledge", "Programming", "5 Languages",
-            "Expert Climber", "Swimming Champion", "Marathon Runner", "Weapons Expert"
-        ];
-        
-        const TRAITS = [
-            "Natural Leader", "Extremely Loyal", "Quick Thinker", "Calm Under Pressure",
-            "Brutally Honest", "Master Negotiator", "Problem Solver", "Optimistic",
-            "Pessimistic", "Paranoid", "Charismatic", "Introverted"
-        ];
-        
-        const BAGGAGE = [
-            "First Aid Kit", "Solar Generator", "Water Filter", "Seed Vault",
-            "Tool Set", "Weapons Cache", "Radio Equipment", "Medical Supplies",
-            "Survival Manuals", "Radiation Detector", "Night Vision Goggles", "Laptop"
-        ];
-        
+        // Game data
+        const PROFESSIONS = ["Doctor", "Engineer", "Soldier", "Teacher", "Farmer", "Scientist", "Chef", "Mechanic", "Programmer", "Nurse"];
+        const AGES = ["18", "25", "30", "35", "40", "45", "50", "55", "60", "65"];
+        const GENDER_STATUS = ["Male, Single", "Female, Single", "Male, Married", "Female, Married"];
+        const HEALTH = ["Excellent Health", "Good Health", "Asthma", "Diabetes", "Poor Vision"];
+        const SKILLS = ["Expert Hunter", "Master Gardener", "Martial Arts", "Emergency Medicine", "Programming"];
+        const TRAITS = ["Natural Leader", "Loyal", "Quick Thinker", "Calm", "Optimistic"];
+        const BAGGAGE = ["First Aid Kit", "Solar Generator", "Water Filter", "Tool Set", "Laptop"];
         const UNIQUE = [
             {type: "Mutation", text: "Night Vision"},
-            {type: "Mutation", text: "Enhanced Hearing"},
-            {type: "Mutation", text: "Radiation Immunity"},
             {type: "Phobia", text: "Claustrophobia"},
-            {type: "Phobia", text: "Fear of Darkness"},
-            {type: "Phobia", text: "Fear of Blood"},
-            {type: "Secret", text: "Former Criminal"},
-            {type: "Secret", text: "Hidden Millionaire"},
-            {type: "Secret", text: "Government Agent"},
-            {type: "Legend", text: "Predicted Catastrophe"},
-            {type: "Legend", text: "Disaster Survivor"},
-            {type: "Legend", text: "Saved 50 Lives"}
+            {type: "Secret", text: "Former Criminal"}
         ];
         
         const CATASTROPHES = [
-            {
-                icon: "☢️",
-                name: "Nuclear World War",
-                description: "Global nuclear conflict. Radiation lethal on surface for 1 year."
-            },
-            {
-                icon: "🧟",
-                name: "Zombie Virus",
-                description: "95% of humanity infected. Violent, mindless creatures hunt survivors."
-            },
-            {
-                icon: "☄️",
-                name: "Asteroid Impact",
-                description: "10km asteroid struck Earth. Dust blocks sun. Temperature dropped 40°C."
-            },
-            {
-                icon: "🤖",
-                name: "AI Uprising",
-                description: "Military AI turned hostile. Hunter drones patrol everywhere."
-            },
-            {
-                icon: "🌋",
-                name: "Supervolcano",
-                description: "Yellowstone erupted. Toxic ash covers everything. Air is poison."
-            },
-            {
-                icon: "🦠",
-                name: "Pandemic",
-                description: "Airborne virus. 90% mortality. No cure exists yet."
-            }
+            {icon: "☢️", name: "Nuclear War", description: "Global nuclear conflict. Radiation lethal for 1 year."},
+            {icon: "🧟", name: "Zombie Virus", description: "95% of humanity infected."},
+            {icon: "☄️", name: "Asteroid Impact", description: "Dust blocks sun. Temperature dropped 40°C."}
         ];
 
-        // Game state
         let gameState = {
             roomCode: null,
             playerId: null,
@@ -697,7 +518,6 @@
             roomListener: null
         };
 
-        // Utility functions
         function shuffle(array) {
             const arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -724,7 +544,6 @@
             };
         }
 
-        // Create room
         async function createRoom() {
             const nickname = document.getElementById('nicknameInput').value.trim();
             if (!nickname) {
@@ -742,7 +561,6 @@
                 status: 'lobby',
                 currentRound: 1,
                 catastrophe: CATASTROPHES[Math.floor(Math.random() * CATASTROPHES.length)],
-                eliminated: [],
                 votes: {}
             };
 
@@ -765,12 +583,11 @@
                 showLobby();
                 listenToRoom();
             } catch (error) {
-                console.error('Error creating room:', error);
-                alert('Failed to create room. Please try again.');
+                console.error('Error:', error);
+                alert('Failed to create room: ' + error.message);
             }
         }
 
-        // Join room
         async function joinRoom() {
             const nickname = document.getElementById('nicknameInput').value.trim();
             const roomCode = document.getElementById('roomCodeInput').value.trim().toUpperCase();
@@ -784,19 +601,19 @@
                 const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${roomCode}`));
                 
                 if (!snapshot.exists()) {
-                    alert('Room not found! Please check the code.');
+                    alert('Room not found!');
                     return;
                 }
 
                 const roomData = snapshot.val();
 
                 if (roomData.status !== 'lobby') {
-                    alert('Game already in progress!');
+                    alert('Game already started!');
                     return;
                 }
 
                 if (Object.keys(roomData.players).length >= 12) {
-                    alert('Room is full! Maximum 12 players.');
+                    alert('Room is full!');
                     return;
                 }
 
@@ -819,12 +636,11 @@
                 showLobby();
                 listenToRoom();
             } catch (error) {
-                console.error('Error joining room:', error);
-                alert('Failed to join room. Please try again.');
+                console.error('Error:', error);
+                alert('Failed to join room: ' + error.message);
             }
         }
 
-        // Listen to room changes
         function listenToRoom() {
             if (gameState.roomListener) {
                 gameState.roomListener();
@@ -866,13 +682,12 @@
                 const roomData = snapshot.val();
 
                 if (gameState.playerId !== roomData.host) {
-                    alert('Only the host can start the game!');
+                    alert('Only the host can start!');
                     return;
                 }
 
-                const playerCount = Object.keys(roomData.players).length;
-                if (playerCount < 4) {
-                    alert('Need at least 4 players to start!');
+                if (Object.keys(roomData.players).length < 4) {
+                    alert('Need at least 4 players!');
                     return;
                 }
 
@@ -880,7 +695,7 @@
                     status: 'playing'
                 });
             } catch (error) {
-                console.error('Error starting game:', error);
+                console.error('Error:', error);
             }
         }
 
@@ -895,14 +710,13 @@
                         ${p.name}
                         ${p.id === gameState.playerId ? ' (YOU)' : ''}
                     </span>
-                    <span class="status waiting">READY</span>
                 </div>
             `).join('');
 
             const startBtn = document.getElementById('startGameBtn');
             startBtn.disabled = players.length < 4 || gameState.playerId !== roomData.host;
 
-            if (roomData.status === 'playing') {
+            if (roomData.status !== 'lobby') {
                 document.getElementById('lobbyScreen').classList.add('hidden');
                 document.getElementById('gameScreen').classList.remove('hidden');
             }
@@ -912,29 +726,28 @@
             document.getElementById('gameScreen').classList.remove('hidden');
             document.getElementById('lobbyScreen').classList.add('hidden');
             document.getElementById('votingScreen').classList.add('hidden');
-            document.getElementById('resultsScreen').classList.add('hidden');
 
             document.getElementById('currentRound').textContent = roomData.currentRound;
             
             const activePlayers = Object.values(roomData.players).filter(p => !p.eliminated);
             document.getElementById('playersRemaining').textContent = activePlayers.length;
 
-            document.querySelector('.catastrophe-icon').textContent = roomData.catastrophe.icon;
+            document.getElementById('catastropheIcon').textContent = roomData.catastrophe.icon;
             document.getElementById('catastropheName').textContent = roomData.catastrophe.name;
             document.getElementById('catastropheDesc').textContent = roomData.catastrophe.description;
 
             const instructions = document.getElementById('roundInstructions');
             if (roomData.currentRound === 1) {
-                instructions.innerHTML = '<strong>Round 1:</strong> Reveal your PROFESSION card';
+                instructions.innerHTML = '<strong>Round 1:</strong> Reveal your PROFESSION';
             } else {
-                instructions.innerHTML = `<strong>Round ${roomData.currentRound}:</strong> Reveal ONE card of your choice`;
+                instructions.innerHTML = `<strong>Round ${roomData.currentRound}:</strong> Reveal ONE card`;
             }
 
             updateMyCards(roomData);
             updateAllPlayers(roomData);
 
             const nextBtn = document.getElementById('nextPhaseBtn');
-            if (gameState.playerId === roomData.host && roomData.status === 'playing') {
+            if (gameState.playerId === roomData.host) {
                 nextBtn.classList.remove('hidden');
             } else {
                 nextBtn.classList.add('hidden');
@@ -945,16 +758,16 @@
             const myData = roomData.players[gameState.playerId];
             if (!myData) return;
 
-            const cardsContainer = document.getElementById('myCards');
+            const container = document.getElementById('myCards');
             const cardTypes = ['profession', 'age', 'gender', 'health', 'skills', 'trait', 'baggage', 'unique'];
             const cardIcons = {
                 profession: '💼', age: '📅', gender: '👤', health: '❤️',
                 skills: '⚡', trait: '🎭', baggage: '🎒', unique: '⭐'
             };
 
-            cardsContainer.innerHTML = cardTypes.map(type => {
+            container.innerHTML = cardTypes.map(type => {
                 const isRevealed = myData.revealed.includes(type);
-                const card = myData.cards[type];
+                const card = gameState.myCards[type];
                 const shouldReveal = roomData.currentRound === 1 && type === 'profession';
 
                 return `
@@ -962,7 +775,7 @@
                          ${!isRevealed ? `onclick="revealCard('${type}')"` : ''}>
                         <div class="card-type">
                             ${cardIcons[type]} ${type.toUpperCase()}
-                            ${isRevealed ? ' ✓' : shouldReveal ? ' ⚠️ REVEAL NOW' : ' 🔒'}
+                            ${isRevealed ? ' ✅' : shouldReveal ? ' ⚠️ REVEAL NOW!' : ' 🔒'}
                         </div>
                         ${isRevealed ? `
                             <div class="card-content">
@@ -973,7 +786,7 @@
                             </div>
                         ` : `
                             <div class="card-content" style="color: var(--dark-yellow);">
-                                ${shouldReveal ? 'TAP TO REVEAL' : 'Click to reveal'}
+                                ${shouldReveal ? '⚠️ TAP TO REVEAL ⚠️' : 'Click to reveal'}
                             </div>
                         `}
                     </div>
@@ -993,30 +806,28 @@
                     await window.dbSet(window.dbRef(window.db, myPath), revealed);
                 }
             } catch (error) {
-                console.error('Error revealing card:', error);
+                console.error('Error:', error);
             }
         }
 
         function updateAllPlayers(roomData) {
             const container = document.getElementById('allPlayersList');
-            const players = Object.values(roomData.players);
+            const players = Object.values(roomData.players).filter(p => p.id !== gameState.playerId);
 
             container.innerHTML = players.map(p => {
                 const revealedCount = p.revealed.length;
-                const isEliminated = p.eliminated;
-                const isSelf = p.id === gameState.playerId;
-
+                
                 return `
-                    <div class="player-item ${isEliminated ? 'eliminated' : ''} ${isSelf ? 'self' : ''}">
+                    <div class="player-item ${p.eliminated ? 'eliminated' : ''}">
                         <div>
-                            <strong>${p.name}</strong> ${isSelf ? '(YOU)' : ''}
-                            <div style="font-size: 12px; margin-top: 5px;">
-                                Revealed: ${revealedCount}/8 cards
+                            <strong>${p.name}</strong>
+                            <span class="status ${p.eliminated ? 'eliminated' : 'alive'}">
+                                ${p.eliminated ? '☠️ DEAD' : '✓ ALIVE'}
+                            </span>
+                            <div style="font-size: 12px; margin-top: 5px; color: var(--dark-yellow);">
+                                Revealed: ${revealedCount}/8 cards 🔒
                             </div>
                         </div>
-                        <span class="status ${isEliminated ? 'eliminated' : 'alive'}">
-                            ${isEliminated ? '☠️ DEAD' : '✓ ALIVE'}
-                        </span>
                     </div>
                 `;
             }).join('');
@@ -1028,7 +839,7 @@
                 const roomData = snapshot.val();
 
                 if (gameState.playerId !== roomData.host) {
-                    alert('Only the host can advance phases!');
+                    alert('Only host can continue!');
                     return;
                 }
 
@@ -1043,7 +854,7 @@
                     });
                 }
             } catch (error) {
-                console.error('Error advancing phase:', error);
+                console.error('Error:', error);
             }
         }
 
@@ -1070,16 +881,12 @@
 
             const hasVoted = roomData.votes && roomData.votes[gameState.playerId];
             document.getElementById('castVoteBtn').disabled = !gameState.myVote || hasVoted;
-            if (hasVoted) {
-                document.getElementById('castVoteBtn').textContent = '✓ VOTED';
-            } else {
-                document.getElementById('castVoteBtn').textContent = 'CAST VOTE';
-            }
+            document.getElementById('castVoteBtn').textContent = hasVoted ? '✅ VOTED' : 'CAST VOTE';
         }
 
         function selectVote(playerId) {
             gameState.myVote = playerId;
-            updateVotingOptions({ players: {} });
+            updateVotingOptions({players: {}, votes: {}});
         }
 
         async function castVote() {
@@ -1096,11 +903,11 @@
                     const voteCount = Object.keys(roomData.votes || {}).length;
                     
                     if (voteCount === allPlayers.length) {
-                        setTimeout(() => processVotes(roomData), 2000);
+                        setTimeout(() => processVotes(roomData), 1000);
                     }
                 }
             } catch (error) {
-                console.error('Error casting vote:', error);
+                console.error('Error:', error);
             }
         }
 
@@ -1116,7 +923,6 @@
             const mostVoted = Object.keys(voteCount).filter(id => voteCount[id] === maxVotes);
 
             if (mostVoted.length > 1) {
-                alert('Tie! Revoting...');
                 await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
                     votes: {}
                 });
@@ -1146,10 +952,8 @@
             const container = document.getElementById('votingResults');
             container.innerHTML = `
                 <div class="alert warning" style="text-align: center; font-size: 20px;">
-                    <strong>${roomData.eliminatedPlayer.name}</strong> has been eliminated!<br>
-                    <div style="margin-top: 10px;">
-                        Votes: ${roomData.eliminatedPlayer.votes}
-                    </div>
+                    <strong>${roomData.eliminatedPlayer.name}</strong> eliminated!<br>
+                    <div style="margin-top: 10px;">Votes: ${roomData.eliminatedPlayer.votes}</div>
                 </div>
             `;
         }
@@ -1160,7 +964,7 @@
                 const roomData = snapshot.val();
 
                 if (gameState.playerId !== roomData.host) {
-                    alert('Waiting for host to continue...');
+                    alert('Waiting for host...');
                     return;
                 }
 
@@ -1180,12 +984,11 @@
 
                 gameState.myVote = null;
             } catch (error) {
-                console.error('Error continuing:', error);
+                console.error('Error:', error);
             }
         }
 
         function showFinale(roomData) {
-            document.getElementById('gameScreen').classList.add('hidden');
             document.getElementById('resultsScreen').classList.add('hidden');
             document.getElementById('finaleScreen').classList.remove('hidden');
 
@@ -1194,16 +997,7 @@
 
             document.getElementById('survivorsList').innerHTML = survivors.map(p => `
                 <div class="player-item" style="border-color: var(--success); background: rgba(0, 255, 0, 0.1);">
-                    <div>
-                        <strong style="font-size: 20px;">${p.name}</strong>
-                        <div style="margin-top: 10px; font-size: 14px;">
-                            ${Object.entries(p.cards).map(([type, card]) => `
-                                <div style="margin: 5px 0;">
-                                    <strong>${type}:</strong> ${typeof card === 'object' ? `${card.type} - ${card.text}` : card}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
+                    <strong style="font-size: 20px;">${p.name}</strong>
                 </div>
             `).join('');
 
@@ -1216,18 +1010,14 @@
         }
 
         function leaveRoom() {
-            if (confirm('Are you sure you want to leave?')) {
-                if (gameState.roomListener) {
-                    gameState.roomListener();
-                }
+            if (confirm('Leave room?')) {
+                if (gameState.roomListener) gameState.roomListener();
                 returnToWelcome();
             }
         }
 
         function returnToWelcome() {
-            if (gameState.roomListener) {
-                gameState.roomListener();
-            }
+            if (gameState.roomListener) gameState.roomListener();
             
             document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('welcomeScreen').classList.remove('hidden');
@@ -1245,10 +1035,8 @@
             };
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('roomCodeInput').addEventListener('input', (e) => {
-                e.target.value = e.target.value.toUpperCase();
-            });
+        document.getElementById('roomCodeInput').addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
         });
     </script>
 </body>
