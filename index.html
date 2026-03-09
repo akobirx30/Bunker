@@ -602,6 +602,16 @@
                 `;
 
                 const myData = room.players[this.playerId];
+                if (!myData) {
+                    console.error('Player data not found!');
+                    return;
+                }
+
+                // Update myCards from Firebase if needed
+                if (!this.myCards || Object.keys(this.myCards).length === 0) {
+                    this.myCards = myData.cards;
+                }
+
                 const cardNames = TRANSLATIONS[this.lang].cardNames;
 
                 const myCardsHtml = Object.keys(this.myCards).map(type => {
