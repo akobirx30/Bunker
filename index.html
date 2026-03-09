@@ -7,462 +7,239 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Russo+One&display=swap');
         
-        :root {
-            --yellow: #FFD000;
-            --dark-yellow: #CC9900;
-            --black: #0A0A0A;
-            --gray: #1A1A1A;
-            --light-gray: #2A2A2A;
-            --warning: #FF3333;
-            --success: #00FF00;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Share Tech Mono', monospace;
-            background: var(--black);
-            color: var(--yellow);
+            background: #0A0A0A;
+            color: #FFD000;
             min-height: 100vh;
+            padding: 10px;
         }
         
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255, 208, 0, 0.03) 10px,
-                rgba(255, 208, 0, 0.03) 20px
-            );
-            pointer-events: none;
-            z-index: 0;
-        }
+        .container { max-width: 600px; margin: 0 auto; }
         
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .warning-header {
-            background: var(--yellow);
-            color: var(--black);
+        .header {
+            background: #FFD000;
+            color: #0A0A0A;
             padding: 15px;
             text-align: center;
-            border: 4px solid var(--black);
+            border: 4px solid #000;
             margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(255, 208, 0, 0.5);
+            font-family: 'Russo One', sans-serif;
+            font-size: 24px;
         }
         
-        h1 {
-            font-family: 'Russo One', sans-serif;
-            font-size: 32px;
-            letter-spacing: 4px;
+        .panel {
+            background: #1A1A1A;
+            border: 3px solid #FFD000;
+            padding: 20px;
+            margin-bottom: 20px;
         }
         
         h2 {
             font-family: 'Russo One', sans-serif;
-            font-size: 24px;
+            font-size: 18px;
             margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-        
-        .panel {
-            background: var(--gray);
-            border: 3px solid var(--yellow);
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 208, 0, 0.3);
+            color: #FFD000;
         }
         
         input {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             margin: 10px 0;
-            background: var(--light-gray);
-            border: 2px solid var(--dark-yellow);
-            color: var(--yellow);
+            background: #2A2A2A;
+            border: 2px solid #CC9900;
+            color: #FFD000;
             font-family: 'Share Tech Mono', monospace;
             font-size: 16px;
         }
         
-        input:focus {
-            outline: none;
-            border-color: var(--yellow);
-            box-shadow: 0 0 10px rgba(255, 208, 0, 0.5);
-        }
-        
         button {
             width: 100%;
-            padding: 18px;
-            margin: 10px 0;
-            background: var(--yellow);
-            color: var(--black);
-            border: 3px solid var(--black);
-            font-family: 'Russo One', sans-serif;
-            font-size: 18px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-        }
-        
-        button:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255, 208, 0, 0.8);
-        }
-        
-        button:active {
-            transform: scale(0.98);
-        }
-        
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        button.secondary {
-            background: var(--light-gray);
-            color: var(--yellow);
-            border-color: var(--yellow);
-        }
-        
-        button.danger {
-            background: var(--warning);
-            color: white;
-        }
-        
-        .card {
-            background: var(--light-gray);
-            border: 3px solid var(--dark-yellow);
             padding: 15px;
             margin: 10px 0;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .card.hidden {
-            border-color: var(--warning);
+            background: #FFD000;
+            color: #0A0A0A;
+            border: 3px solid #000;
+            font-family: 'Russo One', sans-serif;
+            font-size: 16px;
             cursor: pointer;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--light-gray),
-                var(--light-gray) 10px,
-                var(--gray) 10px,
-                var(--gray) 20px
-            );
+            text-transform: uppercase;
         }
         
-        .card.hidden:hover {
-            transform: translateX(5px);
-            box-shadow: -5px 0 0 var(--yellow);
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        button.secondary { background: #2A2A2A; color: #FFD000; border-color: #FFD000; }
+        
+        .card {
+            background: #2A2A2A;
+            border: 3px solid #FF3333;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            min-height: 70px;
         }
         
         .card.revealed {
-            border-color: var(--success);
+            border-color: #00FF00;
             background: rgba(0, 255, 0, 0.1);
+            cursor: default;
         }
         
-        .card-type {
-            font-family: 'Russo One', sans-serif;
-            color: var(--yellow);
+        .card:hover:not(.revealed) {
+            border-color: #FFD000;
+            transform: translateX(5px);
+        }
+        
+        .card-title {
             font-size: 14px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+            color: #FFD000;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
         
-        .card-content {
+        .card-value {
             font-size: 16px;
             color: white;
         }
         
-        .player-item {
-            background: var(--gray);
-            border-left: 4px solid var(--yellow);
+        .player {
+            background: #1A1A1A;
+            border-left: 4px solid #FFD000;
             padding: 15px;
             margin: 10px 0;
         }
         
-        .player-item.self {
-            border-left-color: var(--success);
-            background: rgba(0, 255, 0, 0.1);
+        .player.me {
+            border-left-color: #00FF00;
+            background: rgba(0, 255, 0, 0.05);
         }
         
-        .player-item.eliminated {
-            border-left-color: var(--warning);
-            opacity: 0.6;
-        }
-        
-        .status {
-            display: inline-block;
-            padding: 5px 12px;
-            border: 2px solid;
-            font-size: 12px;
+        .player-name {
+            font-size: 18px;
             font-weight: bold;
-            text-transform: uppercase;
-            margin-left: 10px;
+            margin-bottom: 10px;
         }
         
-        .status.alive {
-            border-color: var(--success);
-            color: var(--success);
+        .revealed-card {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00FF00;
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 13px;
         }
         
-        .status.eliminated {
-            border-color: var(--warning);
-            color: var(--warning);
-        }
-        
-        .round-display {
-            background: var(--black);
-            border: 3px solid var(--yellow);
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-family: 'Russo One', sans-serif;
-        }
-        
-        .catastrophe {
-            background: linear-gradient(135deg, var(--warning) 0%, var(--black) 100%);
-            border: 4px solid var(--yellow);
-            padding: 25px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .catastrophe-icon {
-            font-size: 64px;
-            margin-bottom: 15px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .vote-option {
-            background: var(--gray);
-            border: 3px solid var(--yellow);
-            padding: 15px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .vote-option:hover {
-            background: var(--light-gray);
-            border-color: var(--warning);
-            transform: translateX(10px);
-        }
-        
-        .vote-option.selected {
-            background: var(--warning);
-            border-color: white;
+        .vote-btn {
+            background: #FF3333;
             color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border: 2px solid white;
+            cursor: pointer;
         }
         
-        .hidden {
-            display: none !important;
+        .vote-btn.selected {
+            background: white;
+            color: #FF3333;
         }
+        
+        .hidden { display: none !important; }
         
         .alert {
-            padding: 15px;
-            margin: 15px 0;
-            border: 3px solid;
-            background: var(--gray);
-        }
-        
-        .alert.info {
-            border-color: var(--yellow);
-            color: var(--yellow);
-        }
-        
-        .alert.warning {
-            border-color: var(--warning);
-            color: var(--warning);
-        }
-        
-        .alert.success {
-            border-color: var(--success);
-            color: var(--success);
-        }
-        
-        @keyframes flash {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .flash {
-            animation: flash 1s infinite;
-        }
-        
-        .instructions {
-            background: rgba(255, 208, 0, 0.1);
-            border: 2px solid var(--dark-yellow);
-            padding: 15px;
-            margin: 15px 0;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        @media (max-width: 600px) {
-            .container { padding: 10px; }
-            h1 { font-size: 24px; }
-            .panel { padding: 15px; }
+            padding: 12px;
+            margin: 12px 0;
+            border: 3px solid #FFD000;
+            background: #1A1A1A;
+            color: #FFD000;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="warning-header">
-            <h1>⚠️ BUNKER ⚠️</h1>
-            <div style="font-size: 12px; margin-top: 5px;">SURVIVAL PROTOCOL ACTIVE</div>
-        </div>
+        <div class="header">⚠️ BUNKER ⚠️</div>
         
-        <!-- Welcome Screen -->
-        <div id="welcomeScreen">
+        <!-- LANGUAGE SELECTION -->
+        <div id="languageScreen">
             <div class="panel">
-                <h2>⚠️ EMERGENCY PROTOCOL</h2>
-                <p style="margin-bottom: 20px; line-height: 1.6;">
-                    Global catastrophe detected. Only 2 survivors will be admitted to the bunker.
-                </p>
-                
-                <div class="instructions">
-                    <strong>How to play:</strong><br>
-                    1. One player creates a room<br>
-                    2. Others join with the room code<br>
-                    3. Reveal cards each round<br>
-                    4. Vote to eliminate players<br>
-                    5. Last 2 players survive!
-                </div>
-                
-                <input type="text" id="nicknameInput" placeholder="Enter your nickname..." maxlength="20">
-                <button onclick="createRoom()">🔧 CREATE NEW ROOM</button>
-                
-                <div style="text-align: center; margin: 20px 0; color: var(--dark-yellow);">- OR -</div>
-                
-                <input type="text" id="roomCodeInput" placeholder="Enter room code..." maxlength="6" style="text-transform: uppercase;">
-                <button onclick="joinRoom()">🚪 JOIN ROOM</button>
+                <h2 style="text-align: center; margin-bottom: 30px;">SELECT LANGUAGE / ВЫБЕРИТЕ ЯЗЫК</h2>
+                <button onclick="game.setLanguage('en')">🇬🇧 ENGLISH</button>
+                <button onclick="game.setLanguage('ru')">🇷🇺 РУССКИЙ</button>
             </div>
         </div>
         
-        <!-- Lobby Screen -->
+        <!-- WELCOME SCREEN -->
+        <div id="welcomeScreen" class="hidden">
+            <div class="panel">
+                <h2 id="txt_welcome_title">JOIN GAME</h2>
+                <input type="text" id="nickname" placeholder="Enter your name" maxlength="20">
+                <button onclick="game.createRoom()" id="txt_create_room">CREATE ROOM</button>
+                <div style="text-align: center; margin: 15px 0;" id="txt_or">- OR -</div>
+                <input type="text" id="roomCode" placeholder="Enter room code" maxlength="6" style="text-transform: uppercase;">
+                <button onclick="game.joinRoom()" id="txt_join_room">JOIN ROOM</button>
+            </div>
+        </div>
+        
+        <!-- LOBBY -->
         <div id="lobbyScreen" class="hidden">
             <div class="panel">
-                <h2>ROOM CODE: <span id="roomCodeDisplay"></span></h2>
-                <div class="alert info">Share this code with other players!</div>
-                
-                <div id="lobbyPlayerList"></div>
-                
-                <div class="instructions">
-                    <strong>Waiting for players...</strong><br>
-                    Minimum 4 players required. Maximum 12 players.
-                </div>
-                
-                <button id="startGameBtn" onclick="startGame()" disabled>⚠️ START GAME</button>
-                <button class="secondary" onclick="leaveRoom()">← LEAVE ROOM</button>
+                <h2><span id="txt_room">ROOM</span>: <span id="lobbyCode"></span></h2>
+                <div class="alert" id="txt_share_code">Share this code!</div>
+                <div id="lobbyPlayers"></div>
+                <button id="startBtn" onclick="game.startGame()" disabled id="txt_start_game">START GAME</button>
+                <button class="secondary" onclick="game.leave()" id="txt_leave">LEAVE</button>
             </div>
         </div>
         
-        <!-- Game Screen -->
+        <!-- GAME -->
         <div id="gameScreen" class="hidden">
-            <div class="round-display">
-                <div>ROUND <span id="currentRound">1</span> / 5</div>
-                <div style="font-size: 14px; margin-top: 5px; color: var(--dark-yellow);">
-                    <span id="playersRemaining"></span> SURVIVORS REMAINING
-                </div>
-            </div>
-            
-            <div class="catastrophe">
-                <div class="catastrophe-icon" id="catastropheIcon">☢️</div>
-                <h2 id="catastropheName">LOADING...</h2>
-                <p id="catastropheDesc" style="color: white; margin-top: 10px;"></p>
+            <div class="panel">
+                <h2><span id="txt_round">ROUND</span> <span id="round">1</span> / 5</h2>
+                <div id="gameInfo"></div>
             </div>
             
             <div class="panel">
-                <h2>📋 YOUR CHARACTER</h2>
-                <div class="alert info" id="roundInstructions">
-                    Round 1: Reveal your PROFESSION
-                </div>
+                <h2 id="txt_your_cards">📋 YOUR CARDS</h2>
                 <div id="myCards"></div>
             </div>
             
             <div class="panel">
-                <h2>👥 OTHER PLAYERS</h2>
-                <div id="allPlayersList"></div>
+                <h2 id="txt_other_players">👥 OTHER PLAYERS</h2>
+                <div id="otherPlayers"></div>
             </div>
             
-            <button id="nextPhaseBtn" class="hidden" onclick="nextPhase()">CONTINUE →</button>
+            <button id="nextBtn" class="hidden" onclick="game.nextPhase()" id="txt_next">NEXT →</button>
         </div>
         
-        <!-- Voting Screen -->
-        <div id="votingScreen" class="hidden">
-            <div class="round-display flash">
-                <div>⚠️ VOTING PHASE ⚠️</div>
-                <div style="font-size: 14px; margin-top: 5px;">ELIMINATE ONE PLAYER</div>
-            </div>
-            
+        <!-- VOTING -->
+        <div id="voteScreen" class="hidden">
             <div class="panel">
-                <h2>SELECT TARGET</h2>
-                <div class="alert warning">Choose who will be eliminated!</div>
-                <div id="votingOptions"></div>
+                <h2 id="txt_voting">⚠️ VOTING ⚠️</h2>
+                <div class="alert" id="txt_select_eliminate">Choose who to eliminate!</div>
+                <div id="voteOptions"></div>
+                <button id="voteBtn" onclick="game.vote()" disabled id="txt_cast_vote">VOTE</button>
             </div>
-            
-            <button id="castVoteBtn" onclick="castVote()" disabled>CAST VOTE</button>
         </div>
         
-        <!-- Results Screen -->
-        <div id="resultsScreen" class="hidden">
+        <!-- RESULTS -->
+        <div id="resultScreen" class="hidden">
             <div class="panel">
-                <h2>📊 VOTING RESULTS</h2>
-                <div id="votingResults"></div>
+                <h2 id="txt_results">RESULTS</h2>
+                <div id="resultText"></div>
+                <button onclick="game.continueGame()" id="txt_continue">CONTINUE</button>
             </div>
-            <button onclick="continueAfterVoting()">CONTINUE →</button>
         </div>
         
-        <!-- Finale Screen -->
+        <!-- FINALE -->
         <div id="finaleScreen" class="hidden">
-            <div class="warning-header" style="background: var(--success);">
-                <h1>GAME OVER</h1>
-            </div>
-            
-            <div class="catastrophe">
-                <div class="catastrophe-icon">🏆</div>
-                <h2>SURVIVORS SELECTED</h2>
-            </div>
-            
             <div class="panel">
-                <h2>✅ BUNKER SURVIVORS</h2>
-                <div id="survivorsList"></div>
+                <h2 id="txt_game_over">🏆 GAME OVER</h2>
+                <h2 id="txt_survivors">SURVIVORS:</h2>
+                <div id="winners"></div>
+                <button onclick="game.reset()" id="txt_new_game">NEW GAME</button>
             </div>
-            
-            <div class="panel">
-                <h2>☠️ ELIMINATED</h2>
-                <div id="eliminatedList"></div>
-            </div>
-            
-            <button onclick="returnToWelcome()">🔄 NEW GAME</button>
         </div>
     </div>
 
-    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getDatabase, ref, set, get, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
@@ -478,9 +255,9 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        window.db = database;
+        const db = getDatabase(app);
+        
+        window.db = db;
         window.dbRef = ref;
         window.dbSet = set;
         window.dbGet = get;
@@ -489,555 +266,576 @@
     </script>
 
     <script>
-        // Game data
-        const PROFESSIONS = ["Doctor", "Engineer", "Soldier", "Teacher", "Farmer", "Scientist", "Chef", "Mechanic", "Programmer", "Nurse"];
-        const AGES = ["18", "25", "30", "35", "40", "45", "50", "55", "60", "65"];
-        const GENDER_STATUS = ["Male, Single", "Female, Single", "Male, Married", "Female, Married"];
-        const HEALTH = ["Excellent Health", "Good Health", "Asthma", "Diabetes", "Poor Vision"];
-        const SKILLS = ["Expert Hunter", "Master Gardener", "Martial Arts", "Emergency Medicine", "Programming"];
-        const TRAITS = ["Natural Leader", "Loyal", "Quick Thinker", "Calm", "Optimistic"];
-        const BAGGAGE = ["First Aid Kit", "Solar Generator", "Water Filter", "Tool Set", "Laptop"];
-        const UNIQUE = [
-            {type: "Mutation", text: "Night Vision"},
-            {type: "Phobia", text: "Claustrophobia"},
-            {type: "Secret", text: "Former Criminal"}
-        ];
-        
-        const CATASTROPHES = [
-            {icon: "☢️", name: "Nuclear War", description: "Global nuclear conflict. Radiation lethal for 1 year."},
-            {icon: "🧟", name: "Zombie Virus", description: "95% of humanity infected."},
-            {icon: "☄️", name: "Asteroid Impact", description: "Dust blocks sun. Temperature dropped 40°C."}
-        ];
+        // TRANSLATIONS
+        const TRANSLATIONS = {
+            en: {
+                welcome_title: "JOIN GAME",
+                create_room: "CREATE ROOM",
+                join_room: "JOIN ROOM",
+                or: "- OR -",
+                room: "ROOM",
+                share_code: "Share this code with players!",
+                start_game: "START GAME",
+                leave: "LEAVE",
+                round: "ROUND",
+                your_cards: "📋 YOUR CARDS",
+                other_players: "👥 OTHER PLAYERS",
+                next: "NEXT →",
+                voting: "⚠️ VOTING ⚠️",
+                select_eliminate: "Choose who to eliminate!",
+                cast_vote: "VOTE",
+                results: "RESULTS",
+                continue: "CONTINUE",
+                game_over: "🏆 GAME OVER",
+                survivors: "SURVIVORS:",
+                new_game: "NEW GAME",
+                you: "(YOU)",
+                alive: "Alive",
+                revealed: "Revealed",
+                click_reveal: "Click to reveal",
+                click_now: "CLICK NOW!",
+                eliminated: "eliminated",
+                votes: "Votes",
+                enter_name: "Please enter your name!",
+                enter_both: "Enter name and room code!",
+                room_not_found: "Room not found!",
+                game_started: "Game already started!",
+                room_full: "Room is full!",
+                only_host: "Only host can do this!",
+                need_4: "Need 4+ players!",
+                wait_host: "Wait for host...",
+                leave_confirm: "Leave room?",
+                voted: "VOTED",
+                
+                cards: {
+                    profession: "Doctor,Engineer,Soldier,Teacher,Farmer,Scientist,Chef,Mechanic".split(','),
+                    age: "18,25,30,35,40,45,50,60".split(','),
+                    gender: "Male,Female,Male Married,Female Married".split(','),
+                    health: "Excellent,Good,Asthma,Diabetes,Poor Vision".split(','),
+                    skills: "Hunter,Gardener,Martial Arts,Medicine,Programming".split(','),
+                    trait: "Leader,Loyal,Quick Mind,Calm,Optimist".split(','),
+                    baggage: "First Aid,Solar Panel,Water Filter,Tools,Laptop".split(','),
+                    unique: "Mutation: Night Vision,Phobia: Claustrophobia,Secret: Criminal".split(',')
+                },
+                
+                cardNames: {
+                    profession: '💼 PROFESSION',
+                    age: '📅 AGE',
+                    gender: '👤 GENDER',
+                    health: '❤️ HEALTH',
+                    skills: '⚡ SKILL',
+                    trait: '🎭 TRAIT',
+                    baggage: '🎒 BAGGAGE',
+                    unique: '⭐ UNIQUE'
+                },
+                
+                round1_text: "Open PROFESSION",
+                round_text: "Open ONE card"
+            },
+            
+            ru: {
+                welcome_title: "ВОЙТИ В ИГРУ",
+                create_room: "СОЗДАТЬ КОМНАТУ",
+                join_room: "ВОЙТИ В КОМНАТУ",
+                or: "- ИЛИ -",
+                room: "КОМНАТА",
+                share_code: "Поделитесь этим кодом!",
+                start_game: "НАЧАТЬ ИГРУ",
+                leave: "ВЫЙТИ",
+                round: "РАУНД",
+                your_cards: "📋 ВАШИ КАРТЫ",
+                other_players: "👥 ДРУГИЕ ИГРОКИ",
+                next: "ДАЛЕЕ →",
+                voting: "⚠️ ГОЛОСОВАНИЕ ⚠️",
+                select_eliminate: "Выберите кого исключить!",
+                cast_vote: "ГОЛОСОВАТЬ",
+                results: "РЕЗУЛЬТАТЫ",
+                continue: "ПРОДОЛЖИТЬ",
+                game_over: "🏆 ИГРА ОКОНЧЕНА",
+                survivors: "ВЫЖИВШИЕ:",
+                new_game: "НОВАЯ ИГРА",
+                you: "(ВЫ)",
+                alive: "Живых",
+                revealed: "Открыто",
+                click_reveal: "Нажмите",
+                click_now: "НАЖМИТЕ!",
+                eliminated: "исключён",
+                votes: "Голосов",
+                enter_name: "Введите имя!",
+                enter_both: "Введите имя и код!",
+                room_not_found: "Комната не найдена!",
+                game_started: "Игра уже идёт!",
+                room_full: "Комната полна!",
+                only_host: "Только хост!",
+                need_4: "Нужно 4+ игрока!",
+                wait_host: "Ждите...",
+                leave_confirm: "Выйти?",
+                voted: "ПРОГОЛОСОВАЛИ",
+                
+                cards: {
+                    profession: "Врач,Инженер,Солдат,Учитель,Фермер,Учёный,Повар,Механик".split(','),
+                    age: "18,25,30,35,40,45,50,60".split(','),
+                    gender: "Мужчина,Женщина,Мужчина женат,Женщина замужем".split(','),
+                    health: "Отличное,Хорошее,Астма,Диабет,Плохое зрение".split(','),
+                    skills: "Охотник,Садовод,Боевые искусства,Медицина,Программирование".split(','),
+                    trait: "Лидер,Верный,Быстрый ум,Спокойный,Оптимист".split(','),
+                    baggage: "Аптечка,Солнечная батарея,Фильтр воды,Инструменты,Ноутбук".split(','),
+                    unique: "Мутация: Ночное зрение,Фобия: Клаустрофобия,Секрет: Преступник".split(',')
+                },
+                
+                cardNames: {
+                    profession: '💼 ПРОФЕССИЯ',
+                    age: '📅 ВОЗРАСТ',
+                    gender: '👤 ПОЛ',
+                    health: '❤️ ЗДОРОВЬЕ',
+                    skills: '⚡ НАВЫК',
+                    trait: '🎭 ЧЕРТА',
+                    baggage: '🎒 БАГАЖ',
+                    unique: '⭐ ОСОБЕННОСТЬ'
+                },
+                
+                round1_text: "Откройте ПРОФЕССИЮ",
+                round_text: "Откройте ОДНУ карту"
+            }
+        };
 
-        let gameState = {
+        const game = {
+            lang: 'en',
             roomCode: null,
             playerId: null,
             playerName: null,
             myCards: {},
-            myVote: null,
-            roomListener: null
-        };
+            selectedVote: null,
+            listener: null,
 
-        function shuffle(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
+            t(key) {
+                return TRANSLATIONS[this.lang][key] || key;
+            },
 
-        function generateRoomCode() {
-            return Math.random().toString(36).substring(2, 8).toUpperCase();
-        }
+            setLanguage(lang) {
+                this.lang = lang;
+                document.getElementById('languageScreen').classList.add('hidden');
+                document.getElementById('welcomeScreen').classList.remove('hidden');
+                this.updateUI();
+            },
 
-        function assignCards() {
-            return {
-                profession: shuffle(PROFESSIONS)[0],
-                age: shuffle(AGES)[0] + " years old",
-                gender: shuffle(GENDER_STATUS)[0],
-                health: shuffle(HEALTH)[0],
-                skills: shuffle(SKILLS)[0],
-                trait: shuffle(TRAITS)[0],
-                baggage: shuffle(BAGGAGE)[0],
-                unique: shuffle(UNIQUE)[0]
-            };
-        }
+            updateUI() {
+                const t = this.t.bind(this);
+                document.getElementById('txt_welcome_title').textContent = t('welcome_title');
+                document.getElementById('txt_create_room').textContent = t('create_room');
+                document.getElementById('txt_join_room').textContent = t('join_room');
+                document.getElementById('txt_or').textContent = t('or');
+                document.getElementById('txt_room').textContent = t('room');
+                document.getElementById('txt_share_code').textContent = t('share_code');
+                document.getElementById('txt_start_game').textContent = t('start_game');
+                document.getElementById('txt_leave').textContent = t('leave');
+                document.getElementById('txt_round').textContent = t('round');
+                document.getElementById('txt_your_cards').textContent = t('your_cards');
+                document.getElementById('txt_other_players').textContent = t('other_players');
+                document.getElementById('txt_next').textContent = t('next');
+                document.getElementById('txt_voting').textContent = t('voting');
+                document.getElementById('txt_select_eliminate').textContent = t('select_eliminate');
+                document.getElementById('txt_cast_vote').textContent = t('cast_vote');
+                document.getElementById('txt_results').textContent = t('results');
+                document.getElementById('txt_continue').textContent = t('continue');
+                document.getElementById('txt_game_over').textContent = t('game_over');
+                document.getElementById('txt_survivors').textContent = t('survivors');
+                document.getElementById('txt_new_game').textContent = t('new_game');
+            },
 
-        async function createRoom() {
-            const nickname = document.getElementById('nicknameInput').value.trim();
-            if (!nickname) {
-                alert('Please enter a nickname!');
-                return;
-            }
+            async createRoom() {
+                const t = this.t.bind(this);
+                const name = document.getElementById('nickname').value.trim();
+                if (!name) { alert(t('enter_name')); return; }
 
-            const roomCode = generateRoomCode();
-            const playerId = Date.now().toString();
+                this.roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+                this.playerId = Date.now().toString();
+                this.playerName = name;
+                this.myCards = this.assignCards();
 
-            const roomData = {
-                code: roomCode,
-                host: playerId,
-                players: {},
-                status: 'lobby',
-                currentRound: 1,
-                catastrophe: CATASTROPHES[Math.floor(Math.random() * CATASTROPHES.length)],
-                votes: {}
-            };
-
-            roomData.players[playerId] = {
-                id: playerId,
-                name: nickname,
-                cards: assignCards(),
-                revealed: [],
-                eliminated: false
-            };
-
-            try {
-                await window.dbSet(window.dbRef(window.db, `rooms/${roomCode}`), roomData);
-                
-                gameState.roomCode = roomCode;
-                gameState.playerId = playerId;
-                gameState.playerName = nickname;
-                gameState.myCards = roomData.players[playerId].cards;
-
-                showLobby();
-                listenToRoom();
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to create room: ' + error.message);
-            }
-        }
-
-        async function joinRoom() {
-            const nickname = document.getElementById('nicknameInput').value.trim();
-            const roomCode = document.getElementById('roomCodeInput').value.trim().toUpperCase();
-
-            if (!nickname || !roomCode) {
-                alert('Please enter both nickname and room code!');
-                return;
-            }
-
-            try {
-                const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${roomCode}`));
-                
-                if (!snapshot.exists()) {
-                    alert('Room not found!');
-                    return;
-                }
-
-                const roomData = snapshot.val();
-
-                if (roomData.status !== 'lobby') {
-                    alert('Game already started!');
-                    return;
-                }
-
-                if (Object.keys(roomData.players).length >= 12) {
-                    alert('Room is full!');
-                    return;
-                }
-
-                const playerId = Date.now().toString();
-                const newPlayer = {
-                    id: playerId,
-                    name: nickname,
-                    cards: assignCards(),
-                    revealed: [],
-                    eliminated: false
+                const roomData = {
+                    code: this.roomCode,
+                    host: this.playerId,
+                    players: {},
+                    status: 'lobby',
+                    round: 1,
+                    votes: {}
                 };
 
-                await window.dbUpdate(window.dbRef(window.db, `rooms/${roomCode}/players/${playerId}`), newPlayer);
+                roomData.players[this.playerId] = {
+                    id: this.playerId,
+                    name: name,
+                    cards: this.myCards,
+                    revealed: [],
+                    alive: true
+                };
 
-                gameState.roomCode = roomCode;
-                gameState.playerId = playerId;
-                gameState.playerName = nickname;
-                gameState.myCards = newPlayer.cards;
-
-                showLobby();
-                listenToRoom();
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to join room: ' + error.message);
-            }
-        }
-
-        function listenToRoom() {
-            if (gameState.roomListener) {
-                gameState.roomListener();
-            }
-
-            const roomRef = window.dbRef(window.db, `rooms/${gameState.roomCode}`);
-            gameState.roomListener = window.dbOnValue(roomRef, (snapshot) => {
-                if (!snapshot.exists()) {
-                    alert('Room was deleted!');
-                    returnToWelcome();
-                    return;
+                try {
+                    await window.dbSet(window.dbRef(window.db, `rooms/${this.roomCode}`), roomData);
+                    this.showLobby();
+                    this.listen();
+                } catch (e) {
+                    alert('Error: ' + e.message);
                 }
+            },
 
-                const roomData = snapshot.val();
+            async joinRoom() {
+                const t = this.t.bind(this);
+                const name = document.getElementById('nickname').value.trim();
+                const code = document.getElementById('roomCode').value.trim().toUpperCase();
+                if (!name || !code) { alert(t('enter_both')); return; }
 
-                if (roomData.status === 'lobby') {
-                    updateLobby(roomData);
-                } else if (roomData.status === 'playing') {
-                    updateGame(roomData);
-                } else if (roomData.status === 'voting') {
-                    showVoting(roomData);
-                } else if (roomData.status === 'results') {
-                    showResults(roomData);
-                } else if (roomData.status === 'finale') {
-                    showFinale(roomData);
-                }
-            });
-        }
+                try {
+                    const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${code}`));
+                    if (!snapshot.exists()) { alert(t('room_not_found')); return; }
 
-        function showLobby() {
-            document.getElementById('welcomeScreen').classList.add('hidden');
-            document.getElementById('lobbyScreen').classList.remove('hidden');
-            document.getElementById('roomCodeDisplay').textContent = gameState.roomCode;
-        }
+                    const room = snapshot.val();
+                    if (room.status !== 'lobby') { alert(t('game_started')); return; }
 
-        async function startGame() {
-            try {
-                const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${gameState.roomCode}`));
-                const roomData = snapshot.val();
+                    this.roomCode = code;
+                    this.playerId = Date.now().toString();
+                    this.playerName = name;
+                    this.myCards = this.assignCards();
 
-                if (gameState.playerId !== roomData.host) {
-                    alert('Only the host can start!');
-                    return;
-                }
-
-                if (Object.keys(roomData.players).length < 4) {
-                    alert('Need at least 4 players!');
-                    return;
-                }
-
-                await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
-                    status: 'playing'
-                });
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        function updateLobby(roomData) {
-            const playerList = document.getElementById('lobbyPlayerList');
-            const players = Object.values(roomData.players);
-            
-            playerList.innerHTML = players.map(p => `
-                <div class="player-item ${p.id === gameState.playerId ? 'self' : ''}">
-                    <span>
-                        ${p.id === roomData.host ? '👑 ' : ''}
-                        ${p.name}
-                        ${p.id === gameState.playerId ? ' (YOU)' : ''}
-                    </span>
-                </div>
-            `).join('');
-
-            const startBtn = document.getElementById('startGameBtn');
-            startBtn.disabled = players.length < 4 || gameState.playerId !== roomData.host;
-
-            if (roomData.status !== 'lobby') {
-                document.getElementById('lobbyScreen').classList.add('hidden');
-                document.getElementById('gameScreen').classList.remove('hidden');
-            }
-        }
-
-        function updateGame(roomData) {
-            document.getElementById('gameScreen').classList.remove('hidden');
-            document.getElementById('lobbyScreen').classList.add('hidden');
-            document.getElementById('votingScreen').classList.add('hidden');
-
-            document.getElementById('currentRound').textContent = roomData.currentRound;
-            
-            const activePlayers = Object.values(roomData.players).filter(p => !p.eliminated);
-            document.getElementById('playersRemaining').textContent = activePlayers.length;
-
-            document.getElementById('catastropheIcon').textContent = roomData.catastrophe.icon;
-            document.getElementById('catastropheName').textContent = roomData.catastrophe.name;
-            document.getElementById('catastropheDesc').textContent = roomData.catastrophe.description;
-
-            const instructions = document.getElementById('roundInstructions');
-            if (roomData.currentRound === 1) {
-                instructions.innerHTML = '<strong>Round 1:</strong> Reveal your PROFESSION';
-            } else {
-                instructions.innerHTML = `<strong>Round ${roomData.currentRound}:</strong> Reveal ONE card`;
-            }
-
-            updateMyCards(roomData);
-            updateAllPlayers(roomData);
-
-            const nextBtn = document.getElementById('nextPhaseBtn');
-            if (gameState.playerId === roomData.host) {
-                nextBtn.classList.remove('hidden');
-            } else {
-                nextBtn.classList.add('hidden');
-            }
-        }
-
-        function updateMyCards(roomData) {
-            const myData = roomData.players[gameState.playerId];
-            if (!myData) return;
-
-            const container = document.getElementById('myCards');
-            const cardTypes = ['profession', 'age', 'gender', 'health', 'skills', 'trait', 'baggage', 'unique'];
-            const cardIcons = {
-                profession: '💼', age: '📅', gender: '👤', health: '❤️',
-                skills: '⚡', trait: '🎭', baggage: '🎒', unique: '⭐'
-            };
-
-            container.innerHTML = cardTypes.map(type => {
-                const isRevealed = myData.revealed.includes(type);
-                const card = gameState.myCards[type];
-                const shouldReveal = roomData.currentRound === 1 && type === 'profession';
-
-                return `
-                    <div class="card ${isRevealed ? 'revealed' : 'hidden'}" 
-                         ${!isRevealed ? `onclick="revealCard('${type}')"` : ''}>
-                        <div class="card-type">
-                            ${cardIcons[type]} ${type.toUpperCase()}
-                            ${isRevealed ? ' ✅' : shouldReveal ? ' ⚠️ REVEAL NOW!' : ' 🔒'}
-                        </div>
-                        ${isRevealed ? `
-                            <div class="card-content">
-                                ${type === 'unique' ? 
-                                    `<strong>${card.type}:</strong> ${card.text}` : 
-                                    card
-                                }
-                            </div>
-                        ` : `
-                            <div class="card-content" style="color: var(--dark-yellow);">
-                                ${shouldReveal ? '⚠️ TAP TO REVEAL ⚠️' : 'Click to reveal'}
-                            </div>
-                        `}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        async function revealCard(cardType) {
-            const myPath = `rooms/${gameState.roomCode}/players/${gameState.playerId}/revealed`;
-            
-            try {
-                const snapshot = await window.dbGet(window.dbRef(window.db, myPath));
-                const revealed = snapshot.val() || [];
-                
-                if (!revealed.includes(cardType)) {
-                    revealed.push(cardType);
-                    await window.dbSet(window.dbRef(window.db, myPath), revealed);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        function updateAllPlayers(roomData) {
-            const container = document.getElementById('allPlayersList');
-            const players = Object.values(roomData.players).filter(p => p.id !== gameState.playerId);
-
-            container.innerHTML = players.map(p => {
-                const revealedCount = p.revealed.length;
-                
-                return `
-                    <div class="player-item ${p.eliminated ? 'eliminated' : ''}">
-                        <div>
-                            <strong>${p.name}</strong>
-                            <span class="status ${p.eliminated ? 'eliminated' : 'alive'}">
-                                ${p.eliminated ? '☠️ DEAD' : '✓ ALIVE'}
-                            </span>
-                            <div style="font-size: 12px; margin-top: 5px; color: var(--dark-yellow);">
-                                Revealed: ${revealedCount}/8 cards 🔒
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        async function nextPhase() {
-            try {
-                const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${gameState.roomCode}`));
-                const roomData = snapshot.val();
-
-                if (gameState.playerId !== roomData.host) {
-                    alert('Only host can continue!');
-                    return;
-                }
-
-                if (roomData.currentRound === 1) {
-                    await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
-                        currentRound: 2
+                    await window.dbUpdate(window.dbRef(window.db, `rooms/${code}/players/${this.playerId}`), {
+                        id: this.playerId,
+                        name: name,
+                        cards: this.myCards,
+                        revealed: [],
+                        alive: true
                     });
-                } else {
-                    await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
-                        status: 'voting',
-                        votes: {}
-                    });
+
+                    this.showLobby();
+                    this.listen();
+                } catch (e) {
+                    alert('Error: ' + e.message);
                 }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
+            },
 
-        function showVoting(roomData) {
-            document.getElementById('gameScreen').classList.add('hidden');
-            document.getElementById('votingScreen').classList.remove('hidden');
-            updateVotingOptions(roomData);
-        }
+            assignCards() {
+                const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+                const cards = TRANSLATIONS[this.lang].cards;
+                return {
+                    profession: shuffle([...cards.profession])[0],
+                    age: shuffle([...cards.age])[0],
+                    gender: shuffle([...cards.gender])[0],
+                    health: shuffle([...cards.health])[0],
+                    skills: shuffle([...cards.skills])[0],
+                    trait: shuffle([...cards.trait])[0],
+                    baggage: shuffle([...cards.baggage])[0],
+                    unique: shuffle([...cards.unique])[0]
+                };
+            },
 
-        function updateVotingOptions(roomData) {
-            const container = document.getElementById('votingOptions');
-            const activePlayers = Object.values(roomData.players).filter(p => !p.eliminated);
+            showLobby() {
+                document.getElementById('welcomeScreen').classList.add('hidden');
+                document.getElementById('lobbyScreen').classList.remove('hidden');
+                document.getElementById('lobbyCode').textContent = this.roomCode;
+            },
 
-            container.innerHTML = activePlayers.map(p => {
-                const isSelected = gameState.myVote === p.id;
-                return `
-                    <div class="vote-option ${isSelected ? 'selected' : ''}" 
-                         onclick="selectVote('${p.id}')">
-                        <span>${p.name}</span>
-                        <span>☠️</span>
-                    </div>
-                `;
-            }).join('');
-
-            const hasVoted = roomData.votes && roomData.votes[gameState.playerId];
-            document.getElementById('castVoteBtn').disabled = !gameState.myVote || hasVoted;
-            document.getElementById('castVoteBtn').textContent = hasVoted ? '✅ VOTED' : 'CAST VOTE';
-        }
-
-        function selectVote(playerId) {
-            gameState.myVote = playerId;
-            updateVotingOptions({players: {}, votes: {}});
-        }
-
-        async function castVote() {
-            if (!gameState.myVote) return;
-
-            try {
-                await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}/votes/${gameState.playerId}`), gameState.myVote);
-
-                const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${gameState.roomCode}`));
-                const roomData = snapshot.val();
-
-                if (gameState.playerId === roomData.host) {
-                    const allPlayers = Object.values(roomData.players);
-                    const voteCount = Object.keys(roomData.votes || {}).length;
-                    
-                    if (voteCount === allPlayers.length) {
-                        setTimeout(() => processVotes(roomData), 1000);
+            listen() {
+                if (this.listener) this.listener();
+                
+                const roomRef = window.dbRef(window.db, `rooms/${this.roomCode}`);
+                this.listener = window.dbOnValue(roomRef, (snapshot) => {
+                    if (!snapshot.exists()) {
+                        alert('Room deleted!');
+                        this.reset();
+                        return;
                     }
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
 
-        async function processVotes(roomData) {
-            const votes = roomData.votes || {};
-            const voteCount = {};
-            
-            Object.values(votes).forEach(targetId => {
-                voteCount[targetId] = (voteCount[targetId] || 0) + 1;
-            });
-
-            const maxVotes = Math.max(...Object.values(voteCount));
-            const mostVoted = Object.keys(voteCount).filter(id => voteCount[id] === maxVotes);
-
-            if (mostVoted.length > 1) {
-                await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
-                    votes: {}
+                    const room = snapshot.val();
+                    
+                    if (room.status === 'lobby') this.updateLobby(room);
+                    else if (room.status === 'playing') this.updateGame(room);
+                    else if (room.status === 'voting') this.showVoting(room);
+                    else if (room.status === 'results') this.showResults(room);
+                    else if (room.status === 'finale') this.showFinale(room);
                 });
-                return;
-            }
+            },
 
-            const eliminatedId = mostVoted[0];
-            
-            await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}/players/${eliminatedId}`), {
-                eliminated: true
-            });
+            updateLobby(room) {
+                const t = this.t.bind(this);
+                const players = Object.values(room.players);
+                const html = players.map(p => `
+                    <div class="player ${p.id === this.playerId ? 'me' : ''}">
+                        ${p.id === room.host ? '👑 ' : ''}${p.name}
+                        ${p.id === this.playerId ? ` ${t('you')}` : ''}
+                    </div>
+                `).join('');
+                
+                document.getElementById('lobbyPlayers').innerHTML = html;
+                document.getElementById('startBtn').disabled = players.length < 4 || room.host !== this.playerId;
 
-            await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
-                status: 'results',
-                eliminatedPlayer: {
-                    id: eliminatedId,
-                    name: roomData.players[eliminatedId].name,
-                    votes: voteCount[eliminatedId]
+                if (room.status !== 'lobby') {
+                    document.getElementById('lobbyScreen').classList.add('hidden');
+                    document.getElementById('gameScreen').classList.remove('hidden');
                 }
-            });
-        }
+            },
 
-        function showResults(roomData) {
-            document.getElementById('votingScreen').classList.add('hidden');
-            document.getElementById('resultsScreen').classList.remove('hidden');
+            async startGame() {
+                const t = this.t.bind(this);
+                try {
+                    const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${this.roomCode}`));
+                    const room = snapshot.val();
 
-            const container = document.getElementById('votingResults');
-            container.innerHTML = `
-                <div class="alert warning" style="text-align: center; font-size: 20px;">
-                    <strong>${roomData.eliminatedPlayer.name}</strong> eliminated!<br>
-                    <div style="margin-top: 10px;">Votes: ${roomData.eliminatedPlayer.votes}</div>
-                </div>
-            `;
-        }
+                    if (room.host !== this.playerId) { alert(t('only_host')); return; }
+                    if (Object.keys(room.players).length < 4) { alert(t('need_4')); return; }
 
-        async function continueAfterVoting() {
-            try {
-                const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${gameState.roomCode}`));
-                const roomData = snapshot.val();
+                    await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}`), { status: 'playing' });
+                } catch (e) { console.error(e); }
+            },
 
-                if (gameState.playerId !== roomData.host) {
-                    alert('Waiting for host...');
+            updateGame(room) {
+                const t = this.t.bind(this);
+                document.getElementById('lobbyScreen').classList.add('hidden');
+                document.getElementById('voteScreen').classList.add('hidden');
+                document.getElementById('gameScreen').classList.remove('hidden');
+
+                document.getElementById('round').textContent = room.round;
+                
+                const alive = Object.values(room.players).filter(p => p.alive).length;
+                const roundText = room.round === 1 ? t('round1_text') : t('round_text');
+                document.getElementById('gameInfo').innerHTML = `
+                    <div class="alert">${t('alive')}: ${alive}</div>
+                    <div class="alert">${roundText}</div>
+                `;
+
+                const myData = room.players[this.playerId];
+                const cardNames = TRANSLATIONS[this.lang].cardNames;
+
+                const myCardsHtml = Object.keys(this.myCards).map(type => {
+                    const revealed = myData.revealed.includes(type);
+                    const shouldReveal = room.round === 1 && type === 'profession';
+                    
+                    return `
+                        <div class="card ${revealed ? 'revealed' : ''}" 
+                             onclick="${revealed ? '' : `game.revealCard('${type}')`}">
+                            <div class="card-title">
+                                ${cardNames[type]}
+                                ${revealed ? ' ✅' : shouldReveal ? ' ⚠️' : ' 🔒'}
+                            </div>
+                            ${revealed ? 
+                                `<div class="card-value">${this.myCards[type]}</div>` : 
+                                `<div class="card-value" style="color: #CC9900;">
+                                    ${shouldReveal ? t('click_now') : t('click_reveal')}
+                                </div>`}
+                        </div>
+                    `;
+                }).join('');
+
+                document.getElementById('myCards').innerHTML = myCardsHtml;
+
+                const others = Object.values(room.players).filter(p => p.id !== this.playerId);
+                const othersHtml = others.map(p => {
+                    const revealedCards = p.revealed || [];
+                    return `
+                        <div class="player">
+                            <div class="player-name">${p.name} ${p.alive ? '✓' : '☠️'}</div>
+                            ${revealedCards.length > 0 ? `
+                                <div style="font-size: 12px; margin: 5px 0;">${t('revealed')}:</div>
+                                ${revealedCards.map(type => `
+                                    <div class="revealed-card">
+                                        ${cardNames[type]}: ${p.cards[type]}
+                                    </div>
+                                `).join('')}
+                            ` : `<div style="font-size: 12px; color: #CC9900;">-</div>`}
+                        </div>
+                    `;
+                }).join('');
+
+                document.getElementById('otherPlayers').innerHTML = othersHtml;
+
+                const nextBtn = document.getElementById('nextBtn');
+                if (room.host === this.playerId) {
+                    nextBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.add('hidden');
+                }
+            },
+
+            async revealCard(type) {
+                try {
+                    const path = `rooms/${this.roomCode}/players/${this.playerId}/revealed`;
+                    const snapshot = await window.dbGet(window.dbRef(window.db, path));
+                    const revealed = snapshot.val() || [];
+                    
+                    if (!revealed.includes(type)) {
+                        revealed.push(type);
+                        await window.dbSet(window.dbRef(window.db, path), revealed);
+                    }
+                } catch (e) { console.error(e); }
+            },
+
+            async nextPhase() {
+                const t = this.t.bind(this);
+                try {
+                    const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${this.roomCode}`));
+                    const room = snapshot.val();
+
+                    if (room.host !== this.playerId) { alert(t('only_host')); return; }
+
+                    if (room.round === 1) {
+                        await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}`), { round: 2 });
+                    } else {
+                        await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}`), { status: 'voting', votes: {} });
+                    }
+                } catch (e) { console.error(e); }
+            },
+
+            showVoting(room) {
+                const t = this.t.bind(this);
+                document.getElementById('gameScreen').classList.add('hidden');
+                document.getElementById('voteScreen').classList.remove('hidden');
+
+                const alive = Object.values(room.players).filter(p => p.alive);
+                const html = alive.map(p => `
+                    <div class="vote-btn ${this.selectedVote === p.id ? 'selected' : ''}" 
+                         onclick="game.selectVote('${p.id}')">
+                        ${p.name}
+                    </div>
+                `).join('');
+
+                document.getElementById('voteOptions').innerHTML = html;
+                
+                const hasVoted = room.votes && room.votes[this.playerId];
+                document.getElementById('voteBtn').disabled = !this.selectedVote || hasVoted;
+                document.getElementById('voteBtn').textContent = hasVoted ? t('voted') : t('cast_vote');
+            },
+
+            selectVote(id) {
+                this.selectedVote = id;
+                const snapshot = { players: {}, votes: {} };
+                this.showVoting(snapshot);
+            },
+
+            async vote() {
+                if (!this.selectedVote) return;
+
+                try {
+                    await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}/votes/${this.playerId}`), this.selectedVote);
+
+                    const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${this.roomCode}`));
+                    const room = snapshot.val();
+
+                    if (room.host === this.playerId) {
+                        const players = Object.values(room.players);
+                        const voteCount = Object.keys(room.votes || {}).length;
+                        
+                        if (voteCount === players.length) {
+                            setTimeout(() => this.processVotes(room), 1000);
+                        }
+                    }
+                } catch (e) { console.error(e); }
+            },
+
+            async processVotes(room) {
+                const votes = room.votes || {};
+                const count = {};
+                
+                Object.values(votes).forEach(id => {
+                    count[id] = (count[id] || 0) + 1;
+                });
+
+                const max = Math.max(...Object.values(count));
+                const losers = Object.keys(count).filter(id => count[id] === max);
+
+                if (losers.length > 1) {
+                    await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}`), { votes: {} });
                     return;
                 }
 
-                const activePlayers = Object.values(roomData.players).filter(p => !p.eliminated);
+                const loserId = losers[0];
+                
+                await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}/players/${loserId}`), { alive: false });
 
-                if (activePlayers.length === 2) {
-                    await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
-                        status: 'finale'
-                    });
-                } else {
-                    await window.dbUpdate(window.dbRef(window.db, `rooms/${gameState.roomCode}`), {
-                        currentRound: roomData.currentRound + 1,
-                        status: 'playing',
-                        votes: {}
-                    });
-                }
+                await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}`), {
+                    status: 'results',
+                    eliminated: {
+                        id: loserId,
+                        name: room.players[loserId].name,
+                        votes: count[loserId]
+                    }
+                });
+            },
 
-                gameState.myVote = null;
-            } catch (error) {
-                console.error('Error:', error);
+            showResults(room) {
+                const t = this.t.bind(this);
+                document.getElementById('voteScreen').classList.add('hidden');
+                document.getElementById('resultScreen').classList.remove('hidden');
+
+                document.getElementById('resultText').innerHTML = `
+                    <div class="alert" style="text-align: center; font-size: 18px;">
+                        <strong>${room.eliminated.name}</strong> ${t('eliminated')}!<br>
+                        ${t('votes')}: ${room.eliminated.votes}
+                    </div>
+                `;
+            },
+
+            async continueGame() {
+                const t = this.t.bind(this);
+                try {
+                    const snapshot = await window.dbGet(window.dbRef(window.db, `rooms/${this.roomCode}`));
+                    const room = snapshot.val();
+
+                    if (room.host !== this.playerId) { alert(t('wait_host')); return; }
+
+                    const alive = Object.values(room.players).filter(p => p.alive);
+
+                    if (alive.length === 2) {
+                        await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}`), { status: 'finale' });
+                    } else {
+                        await window.dbUpdate(window.dbRef(window.db, `rooms/${this.roomCode}`), {
+                            round: room.round + 1,
+                            status: 'playing',
+                            votes: {}
+                        });
+                    }
+
+                    this.selectedVote = null;
+                } catch (e) { console.error(e); }
+            },
+
+            showFinale(room) {
+                document.getElementById('resultScreen').classList.add('hidden');
+                document.getElementById('finaleScreen').classList.remove('hidden');
+
+                const winners = Object.values(room.players).filter(p => p.alive);
+                document.getElementById('winners').innerHTML = winners.map(p => `
+                    <div class="player" style="border-color: #00FF00;">
+                        <strong style="font-size: 20px;">${p.name}</strong>
+                    </div>
+                `).join('');
+            },
+
+            leave() {
+                const t = this.t.bind(this);
+                if (confirm(t('leave_confirm'))) this.reset();
+            },
+
+            reset() {
+                if (this.listener) this.listener();
+                
+                document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
+                document.getElementById('languageScreen').classList.remove('hidden');
+                
+                document.getElementById('nickname').value = '';
+                document.getElementById('roomCode').value = '';
+                
+                this.roomCode = null;
+                this.playerId = null;
+                this.playerName = null;
+                this.myCards = {};
+                this.selectedVote = null;
+                this.listener = null;
             }
-        }
+        };
 
-        function showFinale(roomData) {
-            document.getElementById('resultsScreen').classList.add('hidden');
-            document.getElementById('finaleScreen').classList.remove('hidden');
-
-            const survivors = Object.values(roomData.players).filter(p => !p.eliminated);
-            const eliminated = Object.values(roomData.players).filter(p => p.eliminated);
-
-            document.getElementById('survivorsList').innerHTML = survivors.map(p => `
-                <div class="player-item" style="border-color: var(--success); background: rgba(0, 255, 0, 0.1);">
-                    <strong style="font-size: 20px;">${p.name}</strong>
-                </div>
-            `).join('');
-
-            document.getElementById('eliminatedList').innerHTML = eliminated.map(p => `
-                <div class="player-item eliminated">
-                    <span>${p.name}</span>
-                    <span class="status eliminated">☠️</span>
-                </div>
-            `).join('');
-        }
-
-        function leaveRoom() {
-            if (confirm('Leave room?')) {
-                if (gameState.roomListener) gameState.roomListener();
-                returnToWelcome();
-            }
-        }
-
-        function returnToWelcome() {
-            if (gameState.roomListener) gameState.roomListener();
-            
-            document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
-            document.getElementById('welcomeScreen').classList.remove('hidden');
-            
-            document.getElementById('nicknameInput').value = '';
-            document.getElementById('roomCodeInput').value = '';
-            
-            gameState = {
-                roomCode: null,
-                playerId: null,
-                playerName: null,
-                myCards: {},
-                myVote: null,
-                roomListener: null
-            };
-        }
-
-        document.getElementById('roomCodeInput').addEventListener('input', (e) => {
+        document.getElementById('roomCode').addEventListener('input', e => {
             e.target.value = e.target.value.toUpperCase();
         });
+
+        window.game = game;
     </script>
 </body>
 </html>
